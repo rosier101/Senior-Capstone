@@ -20,6 +20,11 @@ class Buttons extends React.Component {
         <span>Kim Kardashian</span>
       </button>
     </div>
+
+    <div class = "btn2">
+        <a href="#" class="btn-flip" data-back="Kardashian" data-front="Kim"></a>
+        </div>
+    
   </div>
             
         </div>
