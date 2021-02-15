@@ -36,7 +36,7 @@ https://medium.com/@giltayar/javascript-asynchrony-and-async-await-in-selenium-w
 const {By,Builder,Key,util,withTagName,cssSelector,Select, WebDriver,until, promise,Promise,Map,map} = require('selenium-webdriver');
 const { elementIsDisabled } = require('selenium-webdriver/lib/until');
 const fs = require('fs')
-let arrayComments;
+
 
 async function main(){
       let driver = await new Builder().forBrowser('chrome').build();
@@ -99,9 +99,12 @@ async function main(){
       // await driver.sleep(2300)
       // loadMore.click();
 
-  //=================================================================================================
+//=================================================================================================
       /*TARGETING COMMENTS SECTION
-      Goal:  target by 'Mr508', getting full html and parse the comments out of the html later*/
+      Goal:  Target UL of all comments - class: XQXOT pxf-y,
+             Then in the UL, get all Mr508 elements, these are comments
+
+              Then */
   
 
           // const commentsList = await (await driver.findElement(By.xpath('/html/body/div[4]/div[2]/div/article/div[3]/div[1]/ul'))).getAttribute('innerText')
@@ -114,11 +117,14 @@ async function main(){
       //** Returns an array of promises -specifically getting all elements that ar just Mr508, these are the comments */
       let commentListChildren = await commentListRootPromise.findElements(By.className('Mr508'))
 
-      let m = new Array();
+      let arrayComments = new Array();
+      /**Iterate each Mr508, find span, and extract inner text, this is the pure comment text, 
+        then push to arrayComments */
+
       for(i=0;i<commentListChildren.length;i++){
         //**get span section of 508 to then get text from span using 'innerText' NEED TO DO THIS FOR EACH 508 element
           let spanText508 = await commentListChildren[i].findElement(By.css('.C4VMK > span'))
-        //**get span section of 508
+        //**then get innerText
           let innerText = await spanText508.getAttribute('innerText').then((text)=>{
               //console.log('this is just the text: '+ text) -FOR TESTING
               //innerText = text; FOR TESTING
@@ -127,28 +133,9 @@ async function main(){
           //console.log('this is innnerText: ' + innerText)- FOR TESTING
           m.push(innerText)
       }
-      console.log('this is m: ' + m)
+      console.log('this is m: ' + m) //checking of of array contents
 
-    
-  
-      
-
-
-      
-      
-
-
-      //**get span section of 508 to then get text from span using 'innerText' NEED TO DO THIS FOR EACH 508 element
-      //const spanText508 = await Mr508s.findElements(By.css('.C4VMK > span'))
-
-      //**get all children UL class, this is one div all Mr508 elements. Each Mr508 represents a comment
-        // await Promise.all(commentsList.findElements(By.xpath('./child::*'))).then((values)=>{
-        //     console.log(values)
-        // })
-      //**specifically getting all elements that ar just Mr508, these are the comments
-        // const Mr508s = await testArray.findElements(By.className('Mr508'))
-      //**get span section of 508
-        // const spanText508 = await Mr508s.findElements(By.css('.C4VMK > span'))
+//WRITE COMMENTS FROM ARRAYCOMMENTS TO FILE
 
     
       
