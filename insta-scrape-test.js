@@ -85,20 +85,11 @@ async function main(){
       const z = await driver.findElement(By.css('#react-root > section > main > div > div._2z6nI > article > div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1)'))
       z.click()
       
-      //clicking load more
-      await driver.sleep(2300)
-      const loadMore = await driver.findElement(By.css('body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > div.EtaWk > ul > li > div'))
-      loadMore.click();
-
-       await driver.sleep(2300)
-       loadMore.click();
-       await driver.sleep(2300)
-       loadMore.click();
-       await driver.sleep(2300)
-       loadMore.click();
+     
 
 //=================================================================================================
-      /*TARGETING COMMENTS SECTION
+     
+  /*TARGETING COMMENTS SECTION
       Goal:  Target UL of all comments - class: XQXOT pxf-y,
              Then in the UL, get all Mr508 elements, these are comments
 
@@ -108,45 +99,82 @@ async function main(){
           // const commentsList = await (await driver.findElement(By.xpath('/html/body/div[4]/div[2]/div/article/div[3]/div[1]/ul'))).getAttribute('innerText')
           // console.log(commentsList)
       
-          
-      //**targeting list of comments UL class: 'XQXOT pxf-y' , this returns a web element promise
-      let commentListRootPromise = await (await driver.findElement(By.css('body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > div.EtaWk > ul')));
-    
-      //** Returns an array of promises -specifically getting all elements that ar just Mr508, these are the comments */
-      let commentListChildren = await commentListRootPromise.findElements(By.className('Mr508'))
+     async function scrapeCommentsFromPost () {   
 
-      let arrayComments = new Array();
-      /**Iterate each Mr508, find span, and extract inner text, this is the pure comment text, 
-        then push to arrayComments */
+          //clicking load more
+        await driver.sleep(2300)
+        const loadMore = await driver.findElement(By.css('body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > div.EtaWk > ul > li > div'))
+        loadMore.click();
 
-      for(i=0;i<commentListChildren.length;i++){
-        //**get span section of 508 to then get text from span using 'innerText' NEED TO DO THIS FOR EACH 508 element
-          let spanText508 = await commentListChildren[i].findElement(By.css('.C4VMK > span'))
-        //**then get innerText
-          let innerText = await spanText508.getAttribute('innerText').then((text)=>{
-              //console.log('this is just the text: '+ text) -FOR TESTING
-              //innerText = text; FOR TESTING
-              return text
-          })
-          //console.log('this is innnerText: ' + innerText)- FOR TESTING
-          arrayComments.push(innerText)
-      }
+        await driver.sleep(2300)
+        loadMore.click();
+        await driver.sleep(2300)
+        loadMore.click();
+        await driver.sleep(2300)
+        loadMore.click();
+
+        //**targeting list of comments UL class: 'XQXOT pxf-y' , this returns a web element promise
+        let commentListRootPromise = await driver.findElement(By.css('body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > div.EtaWk > ul'));
       
-      console.log('m length is '+ arrayComments.length)
-      console.log('this is arrayComments contents: ' + arrayComments) //checking of of array contents
+        //** Returns an array of promises -specifically getting all elements that ar just Mr508, these are the comments */
+        let commentListChildren = await commentListRootPromise.findElements(By.className('Mr508'))
 
+        let arrayComments = new Array();
+        /**Iterate each Mr508, find span, and extract inner text, this is the pure comment text, 
+          then push to arrayComments */
+
+        for(i=0;i<commentListChildren.length;i++){
+          //**get span section of 508 to then get text from span using 'innerText' NEED TO DO THIS FOR EACH 508 element
+            let spanText508 = await commentListChildren[i].findElement(By.css('.C4VMK > span'))
+          //**then get innerText
+            let innerText = await spanText508.getAttribute('innerText').then((text)=>{
+                //console.log('this is just the text: '+ text) -FOR TESTING
+                //innerText = text; FOR TESTING
+                return text
+            })
+            //console.log('this is innnerText: ' + innerText)- FOR TESTING
+            arrayComments.push(innerText)
+        }
+       
+        //console.log('m length is '+ arrayComments.length)
+        //console.log('this is arrayComments contents: ' + arrayComments) //checking of of array contents
+        return arrayComments;
+    }
+//--------------------------------------------------------------  
 //WRITE COMMENTS FROM ARRAYCOMMENTS TO FILE
-
-      arrayComments.forEach((element)=>{
+    function writeToFile(comments){
+      comments.forEach((element)=>{
         elementSpace = element + ', '
           fs.appendFile('comments.txt',elementSpace,(err)=>{
             if(err){
               console.log('error')
             }
           })
-      })
+        })
+     }
+//------------------------------------------------------------------
+//==================================================================
+
+     /** function that click next arrow to get next post and begin scrape again */
+    async function nextPost (){
+      let nextPostArrow = await driver.findElement(By.css('body > div._2dDPU.CkGkG > div.EfHg9 > div > div > a'))
+      await driver.sleep(1500)
+      nextPostArrow.click();
+      console.log(':::::GOING TO NEXT POST::::::')
+    }
+//=================================================================
+/** CORE APP FUNCTIONALITY */
+
+
+  let scrapedComments = await scrapeCommentsFromPost()
+  console.log(scrapedComments + ' length: ' + scrapedComments.length)
+  writeToFile(scrapedComments)
+  nextPost();
+  scrapedComments = await scrapeCommentsFromPost()
+  writeToFile(scrapedComments)
+  console.log(scrapedComments + ' length: ' + scrapedComments.length)
 //-------------------------------
- 
+
     
      
           
