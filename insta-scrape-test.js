@@ -90,14 +90,12 @@ async function main(){
       const loadMore = await driver.findElement(By.css('body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > div.EtaWk > ul > li > div'))
       loadMore.click();
 
-      // await driver.sleep(2300)
-      // loadMore.click();
-    
-      // await driver.sleep(2300)
-      // loadMore.click();
-
-      // await driver.sleep(2300)
-      // loadMore.click();
+       await driver.sleep(2300)
+       loadMore.click();
+       await driver.sleep(2300)
+       loadMore.click();
+       await driver.sleep(2300)
+       loadMore.click();
 
 //=================================================================================================
       /*TARGETING COMMENTS SECTION
@@ -131,16 +129,25 @@ async function main(){
               return text
           })
           //console.log('this is innnerText: ' + innerText)- FOR TESTING
-          m.push(innerText)
+          arrayComments.push(innerText)
       }
-      console.log('this is m: ' + m) //checking of of array contents
+      
+      console.log('m length is '+ arrayComments.length)
+      console.log('this is arrayComments contents: ' + arrayComments) //checking of of array contents
 
 //WRITE COMMENTS FROM ARRAYCOMMENTS TO FILE
 
+      arrayComments.forEach((element)=>{
+        elementSpace = element + ', '
+          fs.appendFile('comments.txt',elementSpace,(err)=>{
+            if(err){
+              console.log('error')
+            }
+          })
+      })
+//-------------------------------
+ 
     
-      
-      
-
      
           
 //--------------------------------
