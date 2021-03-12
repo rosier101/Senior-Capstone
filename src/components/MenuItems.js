@@ -6,7 +6,7 @@ export const MenuItems = [
 	},
 	{
 		title: 'Analysis Data',
-		url: '/Analysis',
+		url: '/analysis',
 		cName: 'nav-links',
 	},
 	{
