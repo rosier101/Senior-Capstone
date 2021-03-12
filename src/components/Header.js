@@ -14,7 +14,7 @@ class Header extends React.Component {
           <img src=''></img>
         </a>
 
-        {/*<nav className='new nav'> */}
+        
         <div className='top'>
           <p id='title'>Celebrity Sentiment Analysis</p>
 
@@ -27,7 +27,7 @@ class Header extends React.Component {
         {/*</nav> */}
         <div className='menu-icon' onClick={this.handleClick}></div>
 
-        {/*This contains News, Opinions, and Solutions on header */}
+        {/*This contains what is in the header */}
         <ul className='nav-menu'>
           {MenuItems.map((item, index) => {
             return (
