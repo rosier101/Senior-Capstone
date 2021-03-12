@@ -8,6 +8,7 @@ class Analysis extends React.Component{
             <div>
                 <img src = "../images/positive.JPG" alt = "smiley"/>
                 <img src = "angry.png" alt = "angry"/>
+                <img src = "angry.png" alt = "angry"/>
 <Header/>
 <PostList/>
             </div>
