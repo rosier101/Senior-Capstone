@@ -6,12 +6,5 @@
         "date": "12-04-2017",
         "slug": "hello-world",
         "img" : "https://ilarge.lisimg.com/image/16801290/1080full-kylie-jenner.jpg"
-    },
-    {
-        "id": 2,
-        "title": "Kim Kardashian",
-        "content": "Social Media Public Figure",
-        "date": "1-28-2018",
-        "slug": "setup-react"
     }
 ]

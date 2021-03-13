@@ -11,12 +11,14 @@ class PostList extends React.Component{
                     <h1 class = "celebName">{postDetail.title}</h1>
                     <p class = "description">{postDetail.content}</p>
                     <img class = "celebPic" src = {postDetail.img}/>
-                    <img src = "../images/positive.JPG" alt = "smiley"/>
+
+                    <div>
+                    <img class = "mood" src = "/images/positive.jpg" alt = "smiley"/>
+                    </div>
                     </div>
 
                     
             })}
-                    
             </div>
         )
     }
