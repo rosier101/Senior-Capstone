@@ -44,10 +44,27 @@ class Buttons extends React.Component {
                           </div>
                           </div>
                           </div>
-                          </div>
+                        </div>
                           
     
-          
+                        <div class="shop-items">
+                <div class="shop-item">
+                  <span class="shop-item-title">Cristiano Ronaldo</span>
+                  <img class="shop-item-image" src = "/images/Cristiano.jpg" alt = "smiley"/>
+                    <div class="shop-item-details">
+                    <div class="center">
+                      <button class="btn-3">
+                        <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
+                          <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
+                          <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
+                        </svg>
+                        <span>Cristiano Ronaldo</span>
+                      </button>
+                    </div>
+                    </div>
+
+                </div>
+              </div>
           
           
           
